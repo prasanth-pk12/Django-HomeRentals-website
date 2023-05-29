@@ -1,0 +1,125 @@
+
+{% load static %}
+
+<style>
+
+body{
+
+border: 2px solid black;
+}
+
+  .body {
+    display: flex;
+    padding-top: 10vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  .d-title {
+    color: #e72dc6;
+    border-bottom: 2px solid #3feb3f;
+    font-weight: 900;
+    margin: 20px;
+  }
+
+
+  table {
+    width: 30% !important;
+  }
+
+td{
+width:50%
+}
+
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+  .btn-download {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 10px 28px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  /* Darker background on mouse-over */
+  .btn-download:hover {
+    background-color: RoyalBlue;
+  }
+
+
+table{
+border-collapse:collapse;
+width:80% !important;
+}
+
+
+  table,
+  tr,
+  th,
+  td {
+    border: 1px solid black;
+    padding: 10px;
+  }
+</style>
+
+
+<body>
+  <div class="body">
+   <h1 style="color:#0059ff"> Dream Home Rentals </h1>
+
+    <h2 class="d-title">House Owner Details</h2>
+
+    <div class="profile">
+      {% if pro.Profile_pic %}
+      <div class="profile "><img src="{{pro_img}}" alt="..." width="130"
+          class="rounded  img-thumbnail"> </div>
+      {% else %}
+      <div class="profile mr-3"><img src="{{no_p}}" alt="..." width="130"
+          class="rounded mb-2 img-thumbnail"></div>
+      {% endif %}
+      <p style='text-align:center'>{{pro.Fullname}}</p>
+    </div>
+
+
+
+      <table class="table table-striped" style="border:2px solid black !important">
+        <tr>
+          <td class="col-md-4"><b>Fullname</td>
+          <td class="col-md-4">{{pro.Fullname}}</td>
+        </tr>
+
+        <tr>
+           <td class="col-md-4"><b>Email</td>
+          <td class="col-md-4">{{pro.Email}}</td>
+        </tr>
+        <tr>
+           <td class="col-md-4"><b>Phone</td>
+          <td class="col-md-4">{{pro.user.phone}}</td>
+        </tr>
+        <tr>
+          <td class="col-md-4"><b>Address</td>
+          <td class="col-md-4">{{pro.address}}</td>
+        </tr>
+     
+         <tr>
+          <td class="col-md-4"><b>Pincode</td>
+          <td class="col-md-4">{{pro.pin_no}}</td>
+        </tr>
+     
+
+      </table>
+
+
+
+
+  </div>
+</body>
+
+
+
+

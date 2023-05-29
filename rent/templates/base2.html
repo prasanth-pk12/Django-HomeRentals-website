@@ -1,0 +1,619 @@
+{% load static %}
+{% static "images" as baseURL %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>DreamHomeRentals</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+  <!--- New Estate Template --------------------->
+
+  <!-- Favicons -->
+  <link href="{% static 'assets11/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets11/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets11/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+  <link href="{% static 'assets11/vendor/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets11/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets11/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets11/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets11/css/style.css' %}" rel="stylesheet">
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'colorlib-regform-30/css/opensans-font.css' %}">
+  <link rel="stylesheet" type="text/css"
+    href="{% static 'colorlib-regform-30/fonts/line-awesome/css/line-awesome.min.css' %}">
+  <!-- Jquery -->
+<!--  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css" > --> 
+  <!-- Main Style Css for pop up colorlib ka -->
+  <link rel="stylesheet" href="{% static 'colorlib-regform-30/css/trystyle.css' %}" />
+
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+
+
+
+
+  <!-- =======================================================
+  * Template Name: EstateAgency - v2.2.1
+  * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+
+  <!-- ======= Header/Navbar ======= -->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top "
+   style = '
+
+background: rgba(255, 255, 255, 0.50);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(14.5px);
+-webkit-backdrop-filter: blur(14.5px);
+border: 1px solid rgba(255, 255, 255, 0.77);
+padding:0
+
+    '
+
+>
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="/rent/home" style="color:#b5177f">DreamHomeRentals</span></a>
+
+
+
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/rent/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/rent/about/' %} active {% endif %}" href="/rent/about/">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/rent/contact/' %} active {% endif %}"
+              href="/rent/contact/">Contact</a>
+          </li>
+          {% if user.is_admin %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/rent/validationpage' %} active {% endif %}"
+              href="/rent/validationpage">Validate</a>
+          </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/api/ShowPremiumPlans' %} active {% endif %}"
+              href="/api/ShowPremiumPlans">Premium</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/rent/UploadHouseDetail/' %} active {% endif %}"
+              style="cursor:pointer" onclick="CheckPremium()">Rent Out</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/api/profile/view/' %} active {% endif %}"
+              href="/api/profile/view/">{{user.username}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/api/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="" data-toggle="modal" data-target="#verifyPhoneModal">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false"
+        onClick="window.location.href='http://127.0.0.1:8000/rent/home/#scroll'">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+  <!-- End Header/Navbar -->
+
+
+
+
+  <!--- Registration Form --------------->
+  <div class="modal" id="regModal" role="document">
+    <div class="modal-dialog modal-md">
+
+      <div class="modal-body">
+        <div class="modal-content">
+          <div class="form-v4">
+            <div class="page-content">
+              <div class="form-v4-content">
+
+                <form class="form-detail" action="#" id="myform">
+                  {% csrf_token %}
+                  <button type="button" class="close" id="CloseRegModal" data-dismiss="modal">&times;</button>
+                  <h2>REGISTER FORM</h2>
+                  <div class="form-group">
+                    <div class="form-row form-row-1">
+                      <label for="full_name">Full Name</label>
+                      <input type="text" name="full_name" id="full_name" class="input-text">
+                    </div>
+                    <div class="form-row form-row-1">
+                      <label for="dob">D.O.B</label>
+                      <input type="date" name="Date_of_Birth" id="dob" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <label for="your_email">Your Email</label>
+                    <input type="text" name="your_email" id="your_email" class="input-text" required
+                      pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+                  </div>
+                  <div class="form-group">
+                    <div class="form-row form-row-1 ">
+                      <label for="password">Password</label>
+                      <input type="password" name="password" id="password" class="input-text" required>
+                    </div>
+                    <div class="form-row form-row-1">
+                      <label for="comfirm_password">Comfirm Password</label>
+                      <input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required>
+                    </div>
+                  </div>
+                  <div class="form-checkbox">
+                    <p>Already hnave an account ? <a href="#" class="text" onclick="openLogin_Modal()">login</a></p>
+                    <!--                               <p>Already hnave an account ? <a href="#" class="text" data-toggle="modal" data-target="#loginModal">login</a></p>-->
+                  </div>
+                  <div class="form-row-last">
+                    <input type="submit" name="register" class="register" value="Register">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---- End Registration Form -------->
+
+
+  <!--- LOGIN Form --------------->
+  <div class="modal" id="loginModal" role="document">
+    <div class="modal-dialog modal-md">
+
+      <div class="modal-body">
+        <div class="modal-content">
+          <div class="form-v4">
+            <div class="page-content">
+              <div class="form-v4-content">
+
+                <form class="form-detail" action="#" id="loginform">
+                  {% csrf_token %}
+                  <button type="button" class="close" id="logClose" data-dismiss="modal">&times;</button>
+                  <h2>LOGIN FORM</h2>
+                  <div class="form-group">
+                    <div class="form-row form-row-1 ">
+                      <label for="phone">Phone no *</label>
+                      <input type="tel" class="input-text" id="phn" name="phone" pattern="[0-9]{10}"
+                        placeholder="phone number" required="">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <div class="form-row form-row-1 ">
+                      <label for="password">Password</label>
+                      <input type="password" name="password" id="passwd" class="input-text" required>
+                    </div>
+                  </div>
+                  <div class="form-checkbox">
+                    <p>Forget password ? <a href="#" class="text" onclick="openReset_Pass_Modal()">click here to reset
+                        password</a></p>
+                  </div>
+                  <div class="form-row-last">
+                    <input type="submit" name="Login" class="register" value="Login">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---- End Login Form -------->
+
+
+  <!--- Verify Phone  --------------->
+  <div class="modal" id="verifyPhoneModal" role="document">
+    <div class="modal-dialog modal-md">
+
+      <div class="modal-body">
+        <div class="modal-content">
+          <div class="form-v4">
+            <div class="page-content">
+              <div class="form-v4-content">
+
+                <form class="form-detail" action="#" id="verifyPhoneform">
+                  {% csrf_token %}
+                  <button type="button" class="close" id="verifyPhoneClose" data-dismiss="modal">&times;</button>
+                  <h2>VERIFY PHONE NUMBER </h2>
+                  <div class="form-group">
+                    <div class="form-row form-row-1 ">
+                      <label for="phone_no">Phone no *</label>
+                      <input type="tel" class="input-text" id="phone_no" name="phone" pattern="[0-9]{10}"
+                        placeholder="phone number" required="">
+                    </div>
+                  </div>
+                  <div class="form-row-last">
+                    <input type="submit" name="Login" class="register" value="Generate OTP" onclick="timer()">
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---- End VerifyPhone Form -------->
+
+
+  <!--- VerifY OTP   --------------->
+  <div class="modal" id="verifyOTPModal" role="document">
+    <div class="modal-dialog modal-md">
+
+      <div class="modal-body">
+        <div class="modal-content">
+          <div class="form-v4">
+            <div class="page-content">
+              <div class="form-v4-content">
+
+                <form class="form-detail" action="#" id="verifyotpform">
+                  {% csrf_token %}
+                  <button type="button" class="close" id="verifyOTPClose" data-dismiss="modal">&times;</button>
+                  <h2>VERIFY OTP </h2>
+                  <div class="form-group">
+                    <div class="form-row form-row-1 ">
+                      <label for="phone">Enter OTP</label>
+                      <input type="number" class="input-text" id="otp" name="otp" required="">
+                    </div>
+                  </div>
+                  <div class="form-row-last" style="display:flex; justify-content:space-between; align-items:center; ">
+                    <input type="submit" name="Login" class="register" value="Verify OTP" style="margin:0; ">
+                    <p id="otp-timer" style="color:black; font-weight:400">02:00 </p>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---- End Verify OTP Form -------->
+
+
+  <!--- Reset Password Form   --------------->
+  <div class="modal" id="reset_pass_modal" role="document">
+    <div class="modal-dialog modal-md">
+
+      <div class="modal-body">
+        <div class="modal-content">
+          <div class="form-v4">
+            <div class="page-content">
+              <div class="form-v4-content">
+
+                <form class="form-detail" action="#" id="reset_pass_form">
+                  {% csrf_token %}
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h2>RESET PASSWORD FORM</h2>
+                  <div class="form-row">
+                    <label for="reset_email">Your Email</label>
+                    <input type="email" name="reset_email" id="reset_email" class="input-text" required
+                      pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+                  </div>
+                  <div class="form-row-last" style="text-align:center">
+                    <input type="submit" name="ResetPaas" class="register" style="padding:8px" value="Reset password">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!---- End Reset Password Form -------->
+
+
+
+  {% block content %}
+
+  {% endblock %}
+
+
+
+  <!-- ======= Footer ======= -->
+  <section class="section-footer">
+    <div class="container" style="max-width:90% !important;">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">DreamHomeRentals</h3>
+            </div>
+            <div class="w-body-a">
+              <p class="w-text-a color-text-a">
+                DreamHomeRentals is a platform where you can search for Rooms, Apartment available on Rent for Bachelor
+                or Family.
+              </p>
+            </div>
+            <div class="w-footer-a">
+              <ul class="list-unstyled">
+                <li class="color-a">
+                  <span class="color-text-a">Phone :</span> +91 9360 985 793
+                </li>
+                <li class="color-a">
+                  <span class="color-text-a">Email :</span> help.dreamhomerentals@gmail.com
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+          <div class="socials-a" style="font-size:30px">
+            <h3 class="w-title-a text-brand" style="margin-top:20px;">Social Links</h3>
+            <li class="list-inline-item">
+              <a href="https://www.facebook.com/mohanaprakash.durai" target="_blank">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://twitter.com/prasanthpkdev" target="_blank">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.instagram.com/prasanth_pk12/" target="_blank">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/@PkTechParadise" target="_blank">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/prasanth-dev" target="_blank">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://github.com/prasanth023/" target="_blank">
+                <i class="fa fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+
+            <h3 class="w-title-a text-brand" style="margin-top:20px;">Quick Links</h3>
+            <nav class="nav-footer" style="font-size:18px">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a href="http://127.0.0.1:8000/rent/contact/">Contact </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="http://127.0.0.1:8000/rent/about/">About </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href data-toggle="modal" data-target="#verifyPhoneModal">Register</a>
+                </li>
+                <li class="list-inline-item">
+                  <a href data-toggle="modal" data-target="#loginModal">Login</a>
+                </li>
+
+              </ul>
+            </nav>
+
+            </ul>
+
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-8 section-md-t3">
+
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15576.671534226038!2d78.5718588!3d12.571179349999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bac54a422d467c5%3A0xf46161ed07f0c784!2sJolarpet%2C%20Tamil%20Nadu%20635851!5e0!3m2!1sen!2sin!4v1675006206152!5m2!1sen!2sin"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        </div>
+  </section>
+
+
+  <footer>
+    <div class="container">
+
+
+      <div class="copyright-footer">
+        <p class="copyright color-text-a">
+          &copy; Copyright
+          <span class="color-a">DreamHomeRentals</span> All Rights Reserved.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!------script ends -->
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+  <script type="text/javascript">
+    function CheckPremium() {
+
+      var Prem = '{{user.profile.Premium}}';
+      if (Prem == 'True') {
+        console.log(Prem)
+        window.location.href = "/rent/UploadHouseDetail/"
+      }
+      else {
+        alert("Not A Premium Account")
+        window.location.href = "/api/ShowPremiumPlans"
+      }
+
+
+
+    }
+
+
+    // just for the demos, avoids form submit
+    jQuery.validator.setDefaults({
+      debug: true,
+      success: function (label) {
+        label.attr('id', 'valid');
+      },
+    });
+    $("#myform").validate({
+      rules: {
+        password: "required",
+        comfirm_password: {
+          equalTo: "#password"
+        }
+      },
+      messages: {
+        full_name: {
+          required: "Please enter a firstname"
+        },
+        dob: {
+          required: "Please enter a lastname"
+        },
+        your_email: {
+          required: "Please provide an email"
+        },
+        password: {
+          required: "Please enter a password"
+        },
+        comfirm_password: {
+          required: "Please enter a password",
+          equalTo: "Wrong Password"
+        }
+      }
+    });
+  </script>
+
+
+
+  <script>
+    $(document).ready(function () {
+      $(".nav-link").click(function (event) {
+        $(".nav-link").removeClass("active");
+        $(this).addClass("active");
+        $(this).submit()
+      });
+    });
+  </script>
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets11/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'assets11/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets11/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'assets11/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets11/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'assets11/vendor/scrollreveal/scrollreveal.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets11/js/main.js' %}"></script>
+  <script src="{% static 'js/popup.js' %}"></script>
+
+
+<script>
+
+function timer(){
+
+console.log("Clicked...")
+
+const otpTimeLimit = 120; // set the time limit to 2 minutes (120 seconds)
+let remainingTime = otpTimeLimit;
+const otpTimer = document.getElementById("otp-timer");
+
+// start the timer
+otpTimer.innerHTML = formatTime(remainingTime);
+
+const countdownInterval = setInterval(() => {
+  remainingTime--;
+  otpTimer.innerHTML = formatTime(remainingTime);
+
+  // check if the timer has expired
+  if (remainingTime <= 0) {
+    clearInterval(countdownInterval);
+    // execute code to handle expired OTP
+    otpTimer.innerText="02:00"
+    location.href="http://127.0.0.1:8000/rent/home/"
+
+  
+  }
+}, 1000);
+
+// function to format the remaining time as MM:SS
+function formatTime(time) {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${padZero(minutes)}:${padZero(seconds)}`;
+}
+
+// function to pad a number with a leading zero if it's less than 10
+function padZero(number) {
+  return number < 10 ? `0${number}` : number;
+}
+
+
+}
+
+
+
+
+
+</script>
+
+
+</body>
+
+</html>

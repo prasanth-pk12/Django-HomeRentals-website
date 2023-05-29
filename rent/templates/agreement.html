@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Rent Agreement</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			line-height: 1.5;
+			font-size: 18px;
+		}
+
+
+		h1 {
+			text-align: center;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+
+		}
+
+		td,
+		th {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+			padding: 10px 30px;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+
+<body>
+
+	<body>
+		<div class="body">
+
+			<h1>Rental Agreement - Dream Home Rentals</h1>
+
+			<p>Date: {{room.agreement_date}}</p>
+
+			<p>Dear {{t_name}},</p>
+
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Congratulations on finding your dream home! We are delighted to provide you with
+				this rental agreement for the property located at {{room.House_address}}. As you have already reviewed the terms
+				and conditions of the rental agreement at the time of booking, you can now proceed with digitally signing the
+				agreement. Upon your digital approval, the rental agreement will be digitally approved by Dream Home Rentals
+				with a sign and seal, and you will be provided with an agreement ID.</h2>
+			<ul>
+				<li>The monthly rent for the property is {{RentAmount}} and is due on the {{duedate}} of each month.</li>
+				<li>A late fee of 500 will be charged for rent payments received after 5 days of the due date.</li>
+				{% for i in terms%}
+				<li>{{i}}</li>
+				{% endfor %}
+
+			</ul>
+
+
+
+			<table>
+				<tr>
+					<th colspan="2">Details of the Property</th>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td>{{room.House_address}}</td>
+				</tr>
+				<tr>
+					<td>Type of Property:</td>
+					<td>Apartment</td>
+				</tr>
+				<tr>
+					<td>Advance Amount:</td>
+					<td> &#8377; {{room.Advance}}</td>
+				</tr>
+				<tr>
+					<td>Rent Amount:</td>
+					<td> &#8377; {{room.Price}}</td>
+				</tr>
+				<tr>
+					<td>Rent Start Date:</td>
+					<td>{{room.start_date}}</td>
+				</tr>
+				<tr>
+					<td>Rent End Date:</td>
+					<td>{{room.end_date}}</td>
+				</tr>
+				<tr>
+					<th colspan="2">Details of the Parties</th>
+				</tr>
+				<tr>
+					<td>House Owner:</td>
+					<td>{{o_name}}</td>
+				</tr>
+
+				<tr>
+					<td>Tenant:</td>
+					<td>{{t_name}}</td>
+				</tr>
+
+			</table>
+
+			<div style="display:flex; margin:0 auto; justify-content:space-between">
+				<div style="padding-top:100px">[{{o_name}}]<br>House Owner's Signature:<br><br> Date: {{room.agreement_date}}
+				</div>
+				<div style="padding-top:100px;">[{{t_name}}]<br>Tenant's Signature: <br><br> Date: {{room.agreement_date}}
+				</div>
+			</div>
+
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thank you for digitally approving the rental agreement for your dream home with
+				Dream Home Rentals. We have received your approval and the rental agreement has been digitally approved by Dream
+				Home Rentals with an agreement ID of {{room.id}}</p>
+
+			<div style="display:flex; margin:0 auto; justify-content:space-between">
+				<div style="padding-top:100px">Date: {{room.agreement_date}} </div>
+				<div style="padding-top:100px;">Sincerely,<br>Dream Home Rentals[Admin],<br><img width=120 height=60
+						src='http://127.0.0.1:8000/media/Profilepic/sign.jpeg'> </div>
+			</div>
+
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,575 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% static "images" as baseURL %}
+
+{% block content %}
+<style type="text/css">
+  .map iframe {
+    width: 100%;
+    min-height: 400px;
+    border: 8px solid #FF5722;
+    padding: 10px;
+    display: inherit;
+  }
+
+
+
+.summary-list .list li{
+ border-bottom:1.5px solid #dbd2d28f;margin-bottom:10px;padding-right:10px;
+}
+.book-house-btn button:hover{
+background-color:#19e70b
+}
+.book-house-btn button{
+padding:6px 8px; background:#44e305c7;font-weight:bold; outline:none; border:none;border-radius:5px;
+}
+
+
+</style>
+<script src="https://js.stripe.com/v3/"></script>
+
+{% for i in Detail %}
+
+
+<main id="main">
+
+  <!-- ======= Intro Single ======= -->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+
+
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <div class="col-md-6 col-lg-4">
+
+
+            </div>
+
+            <h1 class="title-single">{{i.Owner_Name}}</h1>
+            <span class="color-text-a">{{i.city}}</span>
+
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+
+
+            <ol class="breadcrumb">
+              {% if i.user.id == user.profile.id %}
+              <li class="breadcrumb-item">
+                <a href="/rent/UpdateThisRoom/{{i.id}}">Update This Post</a>
+              </li>
+              {% if i.Active %}
+              <li class="breadcrumb-item">
+                <a href="" onclick="DeactivateRoom()">Deactivate This Post</a>
+              </li>
+
+              {% else %}
+              <li class="breadcrumb-item">
+                <a href="" onclick="ActivateRoom()">Activate This Post</a>
+              </li>
+              {% endif %}
+              {% endif %}
+            </ol>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Intro Single-->
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>$('#slider').owlCarousel({
+    loop: true,
+    margin: 15,
+    nav: false,
+    autoplay: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 2
+      },
+      1000: {
+        items: 3
+      }
+    }
+  })</script>
+  <!-- ======= Property Single ======= -->
+  <section class="property-single nav-arrow-b">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="carousel-item-b">
+              <img src="{{i.Building_img1.url}}" alt="" class="img-fluid" style="width:1080px; height:450px">
+              <h2 class="text-center"> Building Image</h2>
+
+            </div>
+            </div>
+            
+            <div class="carousel-item">
+            <div class="carousel-item-b">
+              <img src="{{i.Room_img2.url}}" alt="" class="img-fluid" style="width:1080px; height:450px">
+              <h2 class="text-center"> Kitchen Image</h2>
+            </div>
+           
+            </div>
+            
+            <div class="carousel-item">
+           <div class="carousel-item-b">
+              <img src="{{i.Room_img3.url}}" alt="" class="img-fluid" style="width:1080px; height:450px">
+              <h2 class="text-center"> Bath Room Image</h2>
+            </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="carousel-item-b">
+              <img src="{{i.Room_img1.url}}" alt="" class="img-fluid" style="width:1080px; height:450px">
+              <h2 class="text-center"> Bed Room Image</h2>
+            </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+<!-- Load jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-base.min.js"></script>
+
+
+
+
+
+          <h3 style='border-left: 3px solid #2eca6a;padding:10px 5px;margin:20px 0 '>Building Video</h3>
+          <div class="col-md-10 offset-md-1">
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
+                <video class="img-fluid" width="100%" height="460" controls>
+                  <source src="{{i.House_video.url}}" type='video/mp4'>
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <h3 style='border-left: 3px solid #2eca6a;padding:10px 5px;margin:20px 0'>Building Location</h3>
+          <div class="col-md-10 offset-md-1">
+            <div class="tab-content" id="pills-tabContent">
+
+              <div class="tab-pane fade" id="pills-plans" role="tabpanel" aria-labelledby="pills-plans-tab">
+                <img src="{% static 'assets11/img/plan2.jpg' %}" alt="" class="img-fluid">
+              </div>
+              <div class="tab-pane fade" id="pills-map" role="tabpanel" aria-labelledby="pills-map-tab">
+                <h2 style="color:blue"> Visit on Google Map ---> <a href="{{i.House_Location_link}}"
+                    class="fa fa-google">oogle Map View</a></h2>
+              </div>
+              <div class="map w3layouts">
+                <iframe src="{{i.House_Location_map}}" width="600" height="450" frameborder="0" style="border:0;"
+                  allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+              </div>
+            </div>
+           </div>
+
+          <h3 style='border-left: 3px solid #2eca6a;padding:10px 5px;margin:20px 0; font-weight;900'  class='title-box-d'>Property Description</h3>
+
+              <div class="row justify-content-between" >
+                <div class="col-md-5 col-lg-4">
+                  
+                  <div class="property-summary">
+
+
+                    <div class="summary-list">
+                    <div style="display:flex;flex-direction:column;align-items:center;padding-bottom:10px"> <img src='http://127.0.0.1:8000/media/Housepic/post-7.jpg' width="100%"   height="200px"><div style="font-weight:bold"> {{i.Owner_Name}} </div> </div>
+
+                      <ul class="list">
+                        <li class="d-flex justify-content-between">
+                          <strong>Property ID:</strong>
+                          <span>{{i.id}}</span>
+                        </li>
+
+                        <li class="d-flex justify-content-between">
+                          <strong>Rent Price:</strong>
+                          <span>{{i.Price}}</span>
+                        </li>
+
+                        <li class="d-flex justify-content-between">
+                          <strong>Advance Price:</strong>
+                          <span>{{i.Advance}}</span>
+                        </li>
+
+
+
+
+                        <li class="d-flex justify-content-between">
+                          <strong>Location:</strong>
+                          <span>{{i.city}} {{i.location}}</span>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                          <strong>House Type:</strong>
+                          <span>{{i.House_type}}</span>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                          <strong>Allowed For:</strong>
+                          <span>{{i.AllowedFor}}</span>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                          <strong>Status:</strong>
+                          <span>{{i.Status}}</span>
+                        </li>
+                        
+                      </ul>
+
+
+                    </div>
+
+                    <div style="text-align:center" class="book-house-btn" ><button id="book-btn" style="color:black !important" data-target="#date" data-toggle="modal" class="btn pmd-ripple-effect btn-primary "> Book Now</button></div>
+
+                  </div>
+                </div>
+                <div class="col-md-7 col-lg-7 section-md-t3">
+                  
+                  <div class="property-description" >
+                    <ul  style="list-style: square;margin-bottom: 2px;">
+                       {% for item in Desc%}
+                    <li class="description color-text-a">
+                      {{item}}
+                    </li>
+                      {%endfor%}
+                    </ul>
+                  </div>
+                  <div class="row section-t3">
+                    <div class="col-sm-12">
+                      <h5>
+                       Features
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="amenities-list color-text-a">
+
+                    <ul class="list-a no-margin">
+                      <li>Balcony</li>
+                      <li>Outdoor Kitchen</li>
+                      <li>Cable Tv</li>
+                      <li>Deck</li>
+                      <li>Tennis Courts</li>
+                      <li>Internet</li>
+                      <li>Parking</li>
+                      <li>Sun Room</li>
+                      <li>Concrete Flooring</li>
+                      {% if i.user.id == user.profile.id %}
+
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Property Single-->
+
+</main><!-- End #main -->
+
+
+
+
+<!--  Vertically Centered Modal Modal -->
+
+<div tabindex="-1" class="modal pmd-modal fade" id="date" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width:75%;height:70vh">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Agreement Period</h2>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+
+            <div class="modal-body" style="max-height:70vh; " >
+               <label style="padding:3px;font-size:16px; color:black;margin:5px">Start Date</lable> <input id="start-date" type="date" style="padding:3px;margin:5px" required> <br>
+               <label style="padding:3px; font-size:16px; color:black;margin:2px">End Date</label> <input id="end-date" type="date" style="padding:3px;margin:5px; margin-left:0" required>
+            </div>
+
+            <div class="modal-footer pmd-modal-border text-right">
+                <button data-dismiss="modal" type="button" disabled data-target="#terms" data-toggle="modal" class="btn pmd-btn-flat pmd-ripple-effect btn-primary" id="next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div tabindex="-1" class="modal pmd-modal fade" id="terms" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width:75%;height:70vh">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Terms and Conditions</h2>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+
+            <div class="modal-body" style="max-height:70vh; overflow-y:scroll; text-align:justify;" >
+               <ul style="list-style: square;margin:8px;">
+
+                 {% for item in Terms%}
+                  <li style="color:black; margin-bottom:4px">{{item}}</li>
+                 {%endfor%}
+               </ul>
+            </div>
+
+            <div class="modal-footer pmd-modal-border text-right">
+                <button data-dismiss="modal" type="button"  data-target="#agree" data-toggle="modal" class="btn pmd-btn-flat pmd-ripple-effect btn-primary">I reed & Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div tabindex="-1" class="modal pmd-modal fade" id="agree" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width:75%;height:70vh">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Agreement</h2>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+
+            <div class="modal-body" style="max-height:70vh; overflow-y:scroll; text-align:justify;" >
+               
+
+<div class="rental-agreement">
+  <p>Dear {{user.profile.Fullname}},</p>
+  
+  <p>Thank you for considering Dream Home Rentals as your rental service provider. As part of our commitment to providing you with a seamless rental experience, we have developed an online rental agreement that can be digitally signed by our users.</p>
+
+  <p>By clicking "Agree" below, you are acknowledging that you have read and understood the terms and conditions of the rental agreement and are agreeing to be bound by them. Your digital signature will serve as your acceptance of the rental agreement and will be legally binding.</p>
+
+  <p>Please carefully review the terms and conditions of the rental agreement before agreeing to them. If you have any questions or concerns regarding the agreement, please do not hesitate to contact us.</p>
+
+  <p>Thank you for choosing Dream Home Rentals. We look forward to serving you.</p>
+
+  <p>Sincerely,<br>[Dream Home Rentals]</p>
+
+</div>
+
+
+
+
+            </div>
+
+            <div class="modal-footer pmd-modal-border text-right">
+                <button data-dismiss="modal" type="button" id='agree-btn' class="btn pmd-btn-flat pmd-ripple-effect btn-primary">I Agree & Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+const startDateInput = document.getElementById('start-date');
+const endDateInput = document.getElementById('end-date');
+const nextButton = document.getElementById('next-btn');
+
+  function DeactivateRoom() {
+
+
+    var DataDeactivateRoom = {
+      'user_id': {{ user.profile.id }},
+      'id': {{ i.id }}
+
+    }
+
+  var url = "http://" + url_link + "/rent/DeactivateThisRoom/"
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'applicaiton/json',
+      'X-CSRFToken': csrftoken,
+    },
+    body: JSON.stringify(DataDeactivateRoom),
+
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status) {
+
+        alert("Your Post Is Deactivated Now Yo Can Activate It from your profile ")
+
+      }
+      else {
+        alert("Failed to Deactivate try again")
+        window.location.href = "/rent/home"
+      }
+
+
+    })
+
+  }
+
+
+  function ActivateRoom() {
+
+   {%if activate%}
+
+    var DataActivateRoom = {
+      'user_id': {{ user.profile.id }},
+      'id': {{ i.id }}
+      }
+
+  var url = "http://" + url_link + "/rent/ActivateThisRoom/"
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'applicaiton/json',
+      'X-CSRFToken': csrftoken,
+    },
+    body: JSON.stringify(DataActivateRoom),
+
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status) {
+
+        alert("Your Post Is Activated Now Yo Can Deactivate It from your profile ")
+
+      }
+      else {
+        alert("Failed to Activate try again")
+        window.location.href = "/rent/home"
+      }
+
+
+
+    })
+    
+    {%else%}
+    alert("Attention: Rental agreement still active until {{i.end_date}}. Contact admin for assistance. Thank you for choosing Dream Home Rentals.")
+    {%endif%}
+
+  }
+
+
+
+
+
+const bookButton = document.getElementById("book-btn")
+{%if user.profile.id == i.user_id%}
+bookButton.disabled = true;
+{%endif%}
+
+
+
+
+const agreeBtn = document.getElementById('agree-btn')
+
+
+var csrftoken = undefined;
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+
+  }
+  document.addEventListener("DOMContentLoaded", function (event) {
+    csrftoken = getCookie('csrftoken');
+  });
+
+
+agreeBtn.addEventListener("click",(e)=>{
+
+
+const data = {
+'tenant_id' : {{request.user.profile.id}},
+'tenant_pho': {{request.user.profile.phone_no}},
+'tenant_name':'{{request.user.profile.Fullname}}',
+'owner_id' : {{i.user_id}},
+'house_id' : {{i.id}},
+'house_name':'{{i.Owner_Name}}',
+'advance' : {{i.Advance}},
+'address' : '{{i.House_address}}',
+'start_date': startDateInput.value,
+'end_date': startDateInput.value
+
+}
+$.ajax({
+  url: "http://" + url_link + "/rent/checkout",
+  type: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken,
+  },
+  data: JSON.stringify(data),
+  success: function(response) {
+      var session_id = response.session_id;
+      var stripe = Stripe('{{ stripe_public_key }}');
+      stripe.redirectToCheckout({
+        sessionId: session_id
+      });
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    console.log(textStatus, errorThrown);
+  }
+});
+
+
+
+})
+
+
+
+
+
+
+startDateInput.addEventListener('change', checkDates);
+endDateInput.addEventListener('change', checkDates);
+
+function checkDates() {
+  if (startDateInput.value && endDateInput.value) {
+    nextButton.disabled = false;
+  } else {
+    nextButton.disabled = true;
+  }
+}
+
+
+
+
+</script>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,237 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .card {
+    border: none;
+    padding: 10px 50px;
+  }
+
+  .card::after {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .card:hover {
+
+
+    transform: scale(1.02, 1.02);
+    -webkit-transform: scale(1.02, 1.02);
+    backface-visibility: hidden;
+    will-change: transform;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .75) !important;
+  }
+
+  .card:hover::after {
+    opacity: 1;
+  }
+
+  .card:hover .btn-outline-primary {
+    color: white;
+    background: #007bff;
+  }
+</style>
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body style="padding:0px">
+
+
+  <div class="container-fluid" style="padding:0px;background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);">
+    <div class="container p-5">
+      <div class="row">
+
+        {%if not request.user.profile.Premium%}
+        {% for plan in plans %}
+        <form class="col-lg-4 col-md-12 mb-4 premiumPlan" style="margin-top: 50px;">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                {% csrf_token %}
+
+                <h5 class="card-title">{{plan.Name}}</h5>
+
+                <small>Individual</small>
+                <br><br>
+                <span class="h2">₹ {{plan.Amount}}</span>/{{plan.Validity}}
+                <br><br>
+              </div>
+              <p class="card-text"> List your rental property on Dream Home Rentals with our premium option and reach
+                more potential tenants today!
+              </p>
+            </div>
+
+            <div class="card-body text-center">
+              <button type="submit" class="btn btn-outline-primary btn-lg sub-btn" id="{{plan.id}}"
+                style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </form>
+        {% endfor %}
+        {% endif %}
+
+
+        {%if request.user.profile.Premium%}
+
+        <div class="container" style="margin-top:100px">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <table class="table table-hover table-striped table-borderless">
+                <tbody>
+                  <tr>
+                    <th>Active Plan</th>
+                    <td>{{request.user.profile.premium_Validity}}</td>
+                  </tr>
+                  <tr>
+                    <th>Start Date</th>
+                    <td>{{start_date}}</td>
+                  </tr>
+                  <tr>
+                    <th>End Date</th>
+                    <td>{{end_date}}</td>
+                  </tr>
+                  <tr>
+                    <th>Remaining Days</th>
+                    <td>{{days_left}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div id="timer"></div>
+            </div>
+          </div>
+        </div>
+
+
+        {% endif %}
+      </div>
+    </div>
+</body>
+
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+  var user = '{{request.user}}'
+  var csrftoken = undefined;
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+
+  }
+
+  document.addEventListener("DOMContentLoaded", function (event) {
+
+    csrftoken = getCookie('csrftoken');
+  });
+
+  //**********************************************************************************************************
+
+
+
+
+
+
+  var premiumButtons = document.querySelectorAll('.sub-btn');
+
+  var premium = null
+  for (var i = 0; i < premiumButtons.length; i++) {
+    premiumButtons[i].addEventListener('click', function (e) {
+      e.preventDefault();
+      console.log('Clicked on ADD Premium');
+      premium = e.target.id
+
+
+
+
+      AddPremium();
+    });
+  }
+
+
+
+  function AddPremium() {
+
+
+    //         // Create a new Date object
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    console.log(formattedDate);
+
+    var premiumData = {
+
+      'id': {{ request.user.profile.id }},
+    'planId': null,
+    'start_date': formattedDate,
+    'pno': '{{request.user.profile.phone_no}}',
+     'name':'{{request.user.profile.Fullname}}',
+
+    	}
+
+  premiumData.planId = premium
+
+
+  
+$.ajax({
+  url: "http://" + url_link + "/api/checkout",
+  type: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken,
+  },
+  data: JSON.stringify(premiumData),
+  success: function(response) {
+      var session_id = response.session_id;
+      var stripe = Stripe('{{ stripe_public_key }}');
+      stripe.redirectToCheckout({
+        sessionId: session_id
+      });
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    console.log(textStatus, errorThrown);
+  }
+});
+
+
+
+  }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

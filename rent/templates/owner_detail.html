@@ -1,0 +1,108 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .body {
+    display: flex;
+    padding-top: 10vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  .d-title {
+    color: #e72dc6;
+    border-bottom: 2px solid #3feb3f;
+    font-weight: 900;
+    margin: 20px;
+  }
+
+
+  table {
+    width: 30% !important;
+  }
+
+  .btn-download {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 10px 28px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  /* Darker background on mouse-over */
+  .btn-download:hover {
+    background-color: RoyalBlue;
+  }
+
+
+  table,
+  tr,
+  th,
+  td {
+    border: 1px solid black;
+    padding: 10px;
+  }
+</style>
+
+
+<body>
+  <div class="body">
+    <h3 class="d-title">House Owner Details</h3>
+
+    <div class="profile">
+      {% if pro.Profile_pic %}
+      <div class="profile "><img src="{{pro.Profile_pic.url}}" alt="..." width="130"
+          class="rounded  img-thumbnail"> </div>
+      {% else %}
+      <div class="profile mr-3"><img src="{% static 'images/blank-profile.png' %}" alt="..." width="130"
+          class="rounded mb-2 img-thumbnail"></div>
+      {% endif %}
+      <p style='text-align:center'>{{pro.Fullname}}</p>
+    </div>
+
+    <div>
+      <button class="btn-download" onclick="window.location='{% url 'generate_pdf_owner' pro.id %}'"><i class="fa fa-download"></i> Download</button>
+    </div>
+
+    <div class="table-responsive" style="display:flex; justify-content:center; margin-top:5vh">
+
+      <table class="table table-striped" style="border:2px solid black !important">
+        <tr>
+          <td class="col-md-4"><b>Fullname</td>
+          <td class="col-md-4">{{pro.Fullname}}</td>
+        </tr>
+
+        <tr>
+           <td class="col-md-4"><b>Email</td>
+          <td class="col-md-4">{{pro.Email}}</td>
+        </tr>
+        <tr>
+           <td class="col-md-4"><b>Phone</td>
+          <td class="col-md-4">{{pro.user.phone}}</td>
+        </tr>
+        <tr>
+          <td class="col-md-4"><b>Address</td>
+          <td class="col-md-4">{{pro.address}}</td>
+        </tr>
+      
+        <tr>
+          <td class="col-md-4"><b>Pincode</td>
+          <td class="col-md-4">{{pro.pin_no}}</td>
+        </tr>
+     
+
+      </table>
+    </div>
+
+
+
+  </div>
+</body>
+
+
+
+{% endblock %}

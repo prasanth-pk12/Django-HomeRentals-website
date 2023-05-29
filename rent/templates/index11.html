@@ -1,0 +1,628 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% static "images" as baseURL %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"" />
+<link rel=" stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<style>
+  #slider {
+    /* margin-top: 5%; */
+  }
+
+  .img-area {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+  }
+
+
+  img-area img {
+    width: 100%;
+  }
+
+  .content {
+    height: 400px;
+    text-align: center;
+    padding: 40px;
+    color: #fff;
+    border-radius: 25px;
+    background-color: rgba(90, 85, 85, 0.096);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #000
+  }
+
+  #para {
+    line-height: 1.5;
+    height: 120px;
+    color: #033279
+  }
+
+  .socials {
+    margin-top: 30px;
+    color: #2eca6a
+  }
+
+  .socials i {
+    font-size: 20px;
+    margin: 0 10px;
+  }
+
+  .socials i:hover {
+    color: #000
+  }
+
+  .owl-dots {
+    text-align: center;
+    margin-top: 2%;
+  }
+
+  #slider .owl-dots .owl-dot {
+    display: inline-block;
+    height: 20px !important;
+    width: 20px !important;
+    background-color: rgba(74, 240, 9, 0.753) !important;
+    opacity: .8;
+    margin: 0 10px;
+    border-radius: 50%
+  }
+</style>
+<style>
+  .animated-text {
+    color: red;
+    font-weight: bold;
+    animation: changeColor 3s linear infinite;
+  }
+
+  @keyframes changeColor {
+    0% {
+      color: red;
+    }
+
+    25% {
+      color: orange;
+    }
+
+    50% {
+      color: violet;
+    }
+
+    75% {
+      color: green;
+    }
+
+    100% {
+      color: blue;
+    }
+  }
+</style>
+
+<!-- ======= Intro Section ======= -->
+<div class="intro intro-carousel">
+  <div id="carousel" class="owl-carousel owl-theme">
+    <div class="carousel-item-a intro-item bg-image img-fluid"
+      style="background-image: url({% static '/images/su.jpg' %})">
+      <div class="overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+
+                  <h2 class="intro-title mb-4">
+                    <span class="color-b">Looking For</span>
+                    Rooms search here
+                  </h2>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item-a intro-item bg-image img-fluid"
+      style="background-image: url({% static 'images/housepic.jpg' %})">
+      <div class="overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+                  <!--                    <p class="intro-title-top">Doral, Florida-->
+                  <!--                      <br> 78345-->
+                  <!--                    </p>-->
+                  <h2 class="intro-title mb-4">
+                    <span class="color-b">Get </span> Renters Now<br>
+                    Give Your Flats for Rent
+                  </h2>
+                  <a href="/rent/UploadHouseDetail" onclick="CheckPremium()"> <button type="button"
+                      class="btn btn-primary">List Your Flats For Rent
+                    </button> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item-a intro-item bg-image img-fluid"
+      style="background-image: url({% static 'images/flat.jpg' %})">
+      <div class="overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+                  <!--                    <p class="intro-title-top">Doral, Florida-->
+                  <!--                      <br> 78345-->
+                  <!--                    </p>-->
+                  <h2 class="intro-title mb-4">
+                    <span class="color-b">Get</span> Register
+                    <br> yourself List your Flats Here
+                  </h2>
+
+                  <a href="/rent/UploadHouseDetail" data-toggle="modal" data-target="#verifyPhoneModal"> <button
+                      type="button" class="btn btn-primary">Register Now</button> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- End Intro Section -->
+
+
+<!-- Search -->
+
+<main id="main" style="background: #FFFDFA">
+
+  <!-- ======= Services Section ======= -->
+  <section class="section-services section-t8" id="scroll">
+    <div class="container">
+      <div class="home_search">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="home_search_container">
+                <div class="home_search_title">Search for house on Rent</div>
+                <div class="home_search_content">
+                  <form action="" class="home_search_form" id="indexForm" enctype="multipart/form-data" method="post"
+                    data-courses-url="/rent/load-dists">
+                    {% csrf_token %}
+                    <div
+                      class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start"
+                      style='margin-left=10px'>
+
+                      <select name="state" id="state" style='margin-left=10px' class="search_input search_input_1"
+                        required>
+                        <option>--State--</option>
+                        {% for i in state %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                      </select>
+
+                      <select name="district" id="district" class="search_input search_input_1" required
+                        data-courses1-url="/rent/load-city">
+                        <option>--District--</option>
+
+                      </select>
+
+                      <select name="city" id="city" class="search_input search_input_1" required="required"
+                        data-courses2-url="/rent/load-location">
+                        <option>--City--</option>
+
+                      </select>
+                      <select name="location" id="location" class="search_input search_input_1" required="required">
+                        <option>--Location--</option>
+
+                      </select>
+
+
+
+
+
+                      <select name="selectFor" class="search_input search_input_1" id="house_type" required="required">
+                        <option>--Prefrence--</option>
+                        <option>All</option>
+                        <option>Couple</option>
+                        <option>Bachlor(Male)</option>
+                        <option>Bachlor(Female)</option>
+                        <option>With Family </option>
+                      </select>
+
+                      <select name="House_type" class="search_input search_input_1" required="required">
+                        <option>--House Type--</option>
+                        <option>2BHK</option>
+                        <option>3BHK</option>
+                        <option>SINGLE</option>
+                      </select>
+
+                      <button class="home_search_button"><span class="fa fa-search" aria-hidden="true"></span></button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-wrap d-flex justify-content-between">
+            <div class="title-box">
+              <h2 class="title-a">Our Service</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br><br>
+  </section>
+  <!-- End Services Section -->
+
+  <!-- ======= Latest Properties Section ======= -->
+  <section class="section-property section-t8">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-wrap d-flex justify-content-between">
+            <div class="title-box" style='border-left: 4px solid #28a745 ; padding-left:10px'>
+              <h2 class="title-a"> Available Flats or Rooms For Rent</h2>
+            </div>
+            <div class="title-link">
+              <a href="/rent/allproperty" class="animated-text">All Flats Rooms
+                <span class="ion-ios-arrow-forward"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="property-carousel" class="owl-carousel owl-theme">
+        {% for i in RoomDetail %}
+        {% if i.Status == 'Rent' %}
+        <div class="carousel-item-b">
+          <div class="card-box-a card-shadow">
+            <div class="img-box-a">
+              <img src="{{i.Building_img1}}" alt="" class="img-d img-fluid" style="width:550px; height:450px">
+            </div>
+            <div class="card-overlay">
+              <div class="card-overlay-a-content">
+                <div class="card-header-a">
+                  <h2 class="card-title-a">
+                    <a href="#">{{i.Owner_Name}}
+                      <br /> City : {{i.city}}</a>
+                  </h2>
+                </div>
+                <div class="card-body-a">
+                  <div class="price-box d-flex">
+                    <span class="price-a">rent | {{i.Price}} Rs Monthly </span>
+                  </div>
+                  <a href="/rent/Detail/{{i.id}}" class="link-a">Click here to view
+                    <span class="ion-ios-arrow-forward"></span>
+                  </a>
+                </div>
+                <div class="card-footer-a">
+                  <ul class="card-info d-flex justify-content-around">
+                    <li>
+                      <h4 class="card-info-title">Allowed For</h4>
+                      <span>{{i.AllowedFor}}
+                      </span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">House Type</h4>
+                      <span>{{i.House_type}}</span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">City</h4>
+                      <span>{{i.city}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%endif%}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- End Latest Properties Section -->
+
+
+  <!-- ======= Agents Section ======= -->
+  <section class="section-agents section-t8">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-wrap d-flex justify-content-between">
+            <div class="title-box" style='border-left: 4px solid #28a745 ; padding-left:10px'>
+              <h2 class="title-a" style=""> Testimonials</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slider" class="owl-carousel">
+
+        <div class="content-area">
+          <div class="content">
+            <div class="img-area"><img src="{% static 'images/B.jpeg' %}" alt="1"></div>
+            <h2>DEVA PRAKASH </h2>
+            <div id="para">I had an amazing experience with Dream Home Rentals. They helped me find the perfect home
+              that
+              fit my
+              budget and preferences. The entire process was seamless and stress-free.</div>
+            <p class="socials">
+              <i class="fa fa-facebook"></i>
+              <i class="fa fa-twitter"></i>
+              <i class="fa fa-github"></i>
+              <i class="fa fa-linkedin"></i>
+              <i class="fa fa-youtube"></i>
+            </p>
+          </div>
+        </div>
+
+
+        <div class="content-area">
+          <div class="content">
+            <div class="img-area"><img src="{% static 'images/killer.jpeg' %}" alt="1"></div>
+            <h2>KILLER SAKTHI </h2>
+            <div id="para">The team at Dream Home Rentals provided excellent customer service from start to finish.
+              They
+              were
+              responsive, knowledgeable, and made the renting process a breeze. Highly recommended!</div>
+            <p class="socials">
+              <i class="fa fa-facebook"></i>
+              <i class="fa fa-twitter"></i>
+              <i class="fa fa-github"></i>
+              <i class="fa fa-linkedin"></i>
+              <i class="fa fa-youtube"></i>
+            </p>
+          </div>
+        </div>
+
+
+        <div class="content-area">
+          <div class="content">
+            <div class="img-area"><img src="{% static 'images/v.jpeg' %}" alt="1"></div>
+            <h2>NITHISH KUMAR </h2>
+            <div id="para">I was initially hesitant to rent a home, but Dream Home Rentals made it easy and enjoyable.
+              They
+              listened
+              to my needs and provided multiple options to choose from. I couldn't be happier with my new home.
+            </div>
+            <p class="socials">
+              <i class="fa fa-facebook"></i>
+              <i class="fa fa-twitter"></i>
+              <i class="fa fa-github"></i>
+              <i class="fa fa-linkedin"></i>
+              <i class="fa fa-youtube"></i>
+            </p>
+          </div>
+        </div>
+
+
+        <div class="content-area">
+          <div class="content">
+            <div class="img-area"><img src="{% static 'images/k.jpeg' %}" alt="1"></div>
+            <h2>KAVIARASAN </h2>
+            <div id="para">I highly recommend Dream Home Rentals to anyone in need of a rental property. Their
+              selection
+              is
+              top-notch, and the service is excellent.</div>
+            <p class="socials">
+              <i class="fa fa-facebook"></i>
+              <i class="fa fa-twitter"></i>
+              <i class="fa fa-github"></i>
+              <i class="fa fa-linkedin"></i>
+              <i class="fa fa-youtube"></i>
+            </p>
+          </div>
+        </div>
+
+
+        <div class="content-area">
+          <div class="content">
+            <div class="img-area"><img src="{% static 'images/s.jpeg' %}" alt="1"></div>
+            <h2>SANJAI </h2>
+            <div id="para">Dream Home Rentals provided me with the perfect apartment. The location was great, and the
+              amenities
+              were exactly what I was looking for.
+            </div>
+            <p class="socials">
+              <i class="fa fa-facebook"></i>
+              <i class="fa fa-twitter"></i>
+              <i class="fa fa-github"></i>
+              <i class="fa fa-linkedin"></i>
+              <i class="fa fa-youtube"></i>
+            </p>
+          </div>
+        </div>
+
+
+        <div class="content-area">
+          <div class="content">
+            <div class="img-area"><img src="{% static 'images/d.jpeg' %}" alt="1"></div>
+            <h2>SELVA KUMAR </h2>
+            <div id="para">I highly recommend Dream Home Rentals to anyone in need of a rental property. Their
+              selection
+              is
+              top-notch, and the service is excellent.
+            </div>
+            <p class="socials">
+              <i class="fa fa-facebook"></i>
+              <i class="fa fa-twitter"></i>
+              <i class="fa fa-github"></i>
+              <i class="fa fa-linkedin"></i>
+              <i class="fa fa-youtube"></i>
+            </p>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+  </section>
+  <!-- End Agents Section -->
+
+
+</main>
+
+<!-- End #main -->
+
+
+
+
+
+
+
+
+<!-------- script start ------->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>$('#slider').owlCarousel({
+    loop: true,
+    margin: 15,
+    nav: false,
+    autoplay: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 2
+      },
+      1000: {
+        items: 3
+      }
+    }
+  })</script>
+
+
+{% if section %}
+<script>
+  document.getElementById("{{section}}").scrollIntoView({ behavior: "smooth" }););
+</script>
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $("#state").change(function () {
+    var url = $("#indexForm").attr("data-courses-url");  // get the url of the `load_courses` view
+    var programmingId = $(this).val();  // get the selected programming ID from the HTML input
+
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+      data: {
+        'state': programmingId       // add the programming id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_courses` view function
+        $("#district").html(data);  // replace the contents of the course input with the data that came from the server
+      }
+    });
+
+  });
+  $("#district").change(function () {
+    var url = $("#district").attr("data-courses1-url");  // get the url of the `load_courses` view
+    var stateId = $(this).val();  // get the selected programming ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+      data: {
+        'dist': stateId       // add the programming id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_courses` view function
+        <!--          document.write("success entered into district ")-->
+        $("#city").html(data);  // replace the contents of the course input with the data that came from the server
+      }
+    });
+
+  });
+
+  $("#city").change(function () {
+    var url = $("#city").attr("data-courses2-url");  // get the url of the `load_courses` view
+    var distId = $(this).val();  // get the selected programming ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+      data: {
+        'city': distId       // add the programming id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_courses` view function
+        $("#location").html(data);  // replace the contents of the course input with the data that came from the server
+      }
+    });
+
+  });
+
+
+
+
+
+</script>
+
+<script>
+  document.getElementById("indexForm").addEventListener("submit", function (event) {
+    // Prevent form submission
+    event.preventDefault();
+
+    // Validate the form data
+    var state = document.getElementById("state").value;
+    if (state == "--State--") {
+      alert("Please choose a state.");
+      return false;
+    }
+
+    var dist = document.getElementById("district").value;
+    if (dist == "--District--") {
+      alert("Please choose a district.");
+      return false;
+    }
+
+    var location = document.getElementById("house_type").value;
+    if (location == "--Housing Preference--") {
+      alert("Please choose a location.");
+      return false;
+    }
+
+
+
+
+    // Submit the form if all fields are valid
+    this.submit();
+  });
+</script>
+
+
+
+
+
+{% endblock %}

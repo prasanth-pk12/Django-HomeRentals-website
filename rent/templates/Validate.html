@@ -1,0 +1,92 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% static "images" as baseURL %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+<style>
+  /* Make the image fully responsive */
+
+ body{
+    background: linear-gradient(90deg, #83EAF1 0%, #63A4FF 100%);
+}
+
+
+td{
+min-width:150px
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid darkgray;
+  text-align: center;
+  padding: 8px;
+}
+
+td a button{
+padding:3px
+}
+
+
+</style>
+
+</head>
+<body>
+<br><br><br><br><br><br>
+<h2 class="text-center" style="color: gray">Validate The Posts </h2>
+<br>
+
+<div class="container" style="overflow-X:scroll;color:black">
+<table>
+  <tr>
+    <th>Video Clip</th>
+    <th>Building Image</th>
+    <th>Room Image</th>
+    <th>Kitchen image</th>
+    <th>Bathroom image</th>
+    <th>Owner Name</th>
+    <th>House Address</th>
+    <th>House Description</th>
+    <th>House Location Link</th>
+    <th>Validate Post</th>
+
+  </tr>
+  {% for i in Forvalidate %}
+  <tr>
+    <td>
+      <div class="col-lg-6 col-md-6 col-12">
+            <video class="video-center" width="200" height="150" controls>
+            <source src="{{i.House_video.url}}" type='video/mp4' >
+            Your browser does not support the video tag.
+            </video>
+      </div>
+    </td>
+    <td><a href="{{i.Building_img1.url}}" target="_blank"><img src="{{i.Building_img1.url}}" alt="New York" width="200" height="100"></td>
+    <td><a href="{{i.Room_img1.url}}" target="_blank"><img src="{{i.Room_img1.url}}" alt="New York" width="200" height="150"></td>
+    <td><a href="{{i.Room_img2.url}}" target="_blank"><img src="{{i.Room_img2.url}}" alt="New York" width="200" height="150"></td>
+    <td><a href="{{i.Room_img3.url}}" target="_blank"><img src="{{i.Room_img3.url}}" alt="New York" width="200" height="150"></td>
+    <td>{{i.Owner_Name}}</td>
+    <td>{{i.House_address}}</td>
+    <td style="  max-width: 200px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis; /*">{{i.House_description}}</td>
+    <td><a href="{{i.House_Location_link}}">{{i.House_Location_link}}</a></td>
+    <td>
+      <a href="/rent/Validate/{{i.id}}"><button>Validate</button></a><br><br>
+      <a href="/rent/deletePostvalidation/{{i.id}}"><button>Delete Post</button></a>
+    </td>
+
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+
+
+{% endblock %}
