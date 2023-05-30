@@ -15,8 +15,9 @@ module allows them to review, verify and approve or reject the listing of houses
 
 ## UI Designs:
 
-![1](https://github.com/prasanth023/Django-HomeRentals-website/assets/87668644/a4b87290-4847-40a5-bc4e-98a4fcbc5b2d)
-![2](https://github.com/prasanth023/Django-HomeRentals-website/assets/87668644/0f698e35-6b73-4b28-afc0-05cb081eabc0)
-![3](https://github.com/prasanth023/Django-HomeRentals-website/assets/87668644/089381cb-02ff-44cd-ad2a-ece2d1f53e07)
-![4](https://github.com/prasanth023/Django-HomeRentals-website/assets/87668644/fc1a8be9-a35a-4f76-8621-6169108e5964)
-![5](https://github.com/prasanth023/Django-HomeRentals-website/assets/87668644/48793da4-15aa-4c50-b1bd-146f54dba4be)
+![1](https://github.com/prasanth-pk12/Django-HomeRentals-website/assets/87668644/6bf07e2b-cc47-4e12-81a4-43330a03e264)
+![2](https://github.com/prasanth-pk12/Django-HomeRentals-website/assets/87668644/2f0e2fa1-0b43-4fc8-a192-47e6d48060d2)
+![3](https://github.com/prasanth-pk12/Django-HomeRentals-website/assets/87668644/3137fac2-8056-4681-971c-70c11678dddb)
+![4](https://github.com/prasanth-pk12/Django-HomeRentals-website/assets/87668644/ab054566-d320-4f22-b530-2a72526c6fe4)
+![5](https://github.com/prasanth-pk12/Django-HomeRentals-website/assets/87668644/ca5833af-a878-4f80-8fa3-cc7d1d31242c)
+
