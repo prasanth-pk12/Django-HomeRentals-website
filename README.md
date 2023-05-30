@@ -12,6 +12,7 @@ validation module that can only be accessed by designated super users, such as s
 module allows them to review, verify and approve or reject the listing of houses added by other users.
 </p>
 
+Link: https://dream-home-rentals.onrender.com/rent/contact/
 
 ## UI Designs:
 
