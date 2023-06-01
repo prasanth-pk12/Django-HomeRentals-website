@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
  indx = url_link.indexOf("/")
  url_link = url_link.slice(0,indx)
 
-check_url = "http://"+url_link+"/api/validatePhone"
+check_url = "https://dream-home-rentals.onrender.com/api/validatePhone"
 
 
 
@@ -59,7 +59,7 @@ function verifyPhone(){
 
 //    console.log('verifyphone data  :', verifyPhoneData)
 
-    var url = "http://"+url_link+"/api/validatePhone"
+    var url = "https://dream-home-rentals.onrender.com/api/validatePhone"
     fetch(url, {
         method:'POST',
         headers:{
@@ -118,7 +118,7 @@ function verifyOTP(){
 
         verifyOTPData.otp = otpform.otp.value
 
-    var url = "http://"+url_link+"/api/validateOTP"
+    var url = "https://dream-home-rentals.onrender.com/api/validateOTP"
     fetch(url, {
         method:'POST',
         headers:{
@@ -200,7 +200,7 @@ function register(){
 
     console.log('userFormData ka  data  :', userFormData)
 
-    var url = "http://"+url_link+"/api/register"
+    var url = "https://dream-home-rentals.onrender.com/api/register"
     fetch(url, {
         method:'POST',
         headers:{
@@ -251,7 +251,7 @@ function login(){
     loginformData.password = loginform.passwd.value
     loginformData.phone = loginform.phn.value
 
-    var url = "http://"+url_link+"/api/login"
+    var url = "https://dream-home-rentals.onrender.com/api/login"
     fetch(url, {
         method:'POST',
         headers:{
@@ -367,7 +367,7 @@ function ChngPass(){
     ChngPassformData.new_password = changePwdForm.new_password.value
     ChngPassformData.old_password = changePwdForm.old_password.value
     var auth_token = localStorage.getItem('Auth_Token')
-    var url = "http://"+url_link+"/api/change-password"
+    var url = "https://dream-home-rentals.onrender.com/api/change-password"
     fetch(url, {
         method:'PUT',
         headers:{
@@ -426,7 +426,7 @@ function resetPass(){
         resetPassData.email = resetpassform.reset_email.value
         console.log(resetPassData.email)
 
-    var url = "http://"+url_link+"/api/goToResetPass"
+    var url = "https://dream-home-rentals.onrender.com/api/goToResetPass"
     fetch(url, {
         method:'POST',
         headers:{
